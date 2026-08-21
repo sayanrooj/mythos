@@ -1,38 +1,104 @@
-// api.js — Axios API client for AquaPulse backend
+// api.js — Resilient API client for AquaPulse
+// Supports live Flask backend when available, and automatically falls back to in-browser
+// clientEngine for 100% functional standalone execution on GitHub Pages.
 
 import axios from 'axios';
+import {
+  clientGetStations,
+  clientGetReadings,
+  clientGetStatus,
+  clientGetForecast,
+  clientGetAlerts,
+  clientResolveAlert,
+  clientDispatchAlert,
+  clientGetDashboardSummary,
+  clientSimulateTick,
+} from './clientEngine';
 
 const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 
 const api = axios.create({
   baseURL: BASE_URL,
-  timeout: 30000,
+  timeout: 3000,
 });
 
-export const fetchStations = () => api.get('/stations').then(r => r.data);
+export const fetchStations = async () => {
+  try {
+    const res = await api.get('/stations');
+    return res.data;
+  } catch {
+    return clientGetStations();
+  }
+};
 
-export const fetchReadings = (stationId, params = {}) =>
-  api.get(`/stations/${stationId}/readings`, { params }).then(r => r.data);
+export const fetchReadings = async (stationId, params = {}) => {
+  try {
+    const res = await api.get(`/stations/${stationId}/readings`, { params });
+    return res.data;
+  } catch {
+    return clientGetReadings(stationId, params);
+  }
+};
 
-export const fetchStatus = (stationId) =>
-  api.get(`/stations/${stationId}/status`).then(r => r.data);
+export const fetchStatus = async (stationId) => {
+  try {
+    const res = await api.get(`/stations/${stationId}/status`);
+    return res.data;
+  } catch {
+    return clientGetStatus(stationId);
+  }
+};
 
-export const fetchForecast = (stationId) =>
-  api.get(`/stations/${stationId}/forecast`).then(r => r.data);
+export const fetchForecast = async (stationId) => {
+  try {
+    const res = await api.get(`/stations/${stationId}/forecast`);
+    return res.data;
+  } catch {
+    return clientGetForecast(stationId);
+  }
+};
 
-export const fetchAlerts = (params = {}) =>
-  api.get('/alerts', { params }).then(r => r.data);
+export const fetchAlerts = async (params = {}) => {
+  try {
+    const res = await api.get('/alerts', { params });
+    return res.data;
+  } catch {
+    return clientGetAlerts(params);
+  }
+};
 
-export const resolveAlert = (alertId) =>
-  api.put(`/alerts/${alertId}/resolve`).then(r => r.data);
+export const resolveAlert = async (alertId) => {
+  try {
+    const res = await api.put(`/alerts/${alertId}/resolve`);
+    return res.data;
+  } catch {
+    return clientResolveAlert(alertId);
+  }
+};
 
-export const dispatchAlert = (alertId) =>
-  api.post(`/alerts/${alertId}/dispatch`).then(r => r.data);
+export const dispatchAlert = async (alertId) => {
+  try {
+    const res = await api.post(`/alerts/${alertId}/dispatch`);
+    return res.data;
+  } catch {
+    return clientDispatchAlert(alertId);
+  }
+};
 
-export const fetchDashboard = () =>
-  api.get('/dashboard/summary').then(r => r.data);
+export const fetchDashboard = async () => {
+  try {
+    const res = await api.get('/dashboard/summary');
+    return res.data;
+  } catch {
+    return clientGetDashboardSummary();
+  }
+};
 
-export const simulateTick = () =>
-  api.post('/simulate/tick').then(r => r.data);
-
-
+export const simulateTick = async () => {
+  try {
+    const res = await api.post('/simulate/tick');
+    return res.data;
+  } catch {
+    return clientSimulateTick();
+  }
+};
