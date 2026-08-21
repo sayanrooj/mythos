@@ -88,7 +88,21 @@ export default function App() {
         <div className="brand" onClick={() => setCurrentView('dashboard')} style={{ cursor: 'pointer' }}>
           <div className="brand-icon">💧</div>
           <div className="brand-text">
-            <h1>AquaPulse</h1>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              <h1>AquaPulse</h1>
+              <span style={{
+                fontSize: 10,
+                fontWeight: 700,
+                background: 'linear-gradient(135deg, var(--brand-primary), #38bdf8)',
+                color: '#040d1a',
+                padding: '2px 8px',
+                borderRadius: 100,
+                letterSpacing: 0.5,
+                textTransform: 'uppercase',
+              }}>
+                Team Mythos
+              </span>
+            </div>
             <p>CGWB Real-Time Groundwater Evaluation · {stations.length || 30} DWLR Stations</p>
           </div>
         </div>

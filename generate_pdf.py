@@ -39,7 +39,7 @@ class NumberedCanvas(canvas.Canvas):
         self.setFillColor(colors.HexColor("#64748b"))
 
         # Header
-        self.drawString(54, letter[1] - 36, "AquaPulse — Real-Time Groundwater Resource Evaluation Platform")
+        self.drawString(54, letter[1] - 36, "AquaPulse by Team Mythos — Real-Time Groundwater Resource Evaluation")
         self.drawRightString(letter[0] - 54, letter[1] - 36, "CGWB / Ministry of Jal Shakti Hackathon")
         self.setStrokeColor(colors.HexColor("#cbd5e1"))
         self.setLineWidth(0.5)
@@ -47,7 +47,7 @@ class NumberedCanvas(canvas.Canvas):
 
         # Footer
         self.line(54, 46, letter[0] - 54, 46)
-        self.drawString(54, 32, "Confidential — Hackathon Submission Dossier & Demo Presentation Script")
+        self.drawString(54, 32, "Confidential — Team Mythos Hackathon Dossier & Demo Script")
         self.drawRightString(letter[0] - 54, 32, f"Page {self._pageNumber} of {page_count}")
         self.restoreState()
 
@@ -191,23 +191,23 @@ def build_pdf(filename="AquaPulse_Submission_Dossier_and_Pitch.pdf"):
     # COVER / EXECUTIVE TITLE BLOCK
     # ══════════════════════════════════════════════════════════════════════════
     story.append(Spacer(1, 15))
-    story.append(Paragraph("AQUAPULSE", ParagraphStyle('Tag', fontName='Helvetica-Bold', fontSize=10, textColor=ACCENT, spaceAfter=4)))
+    story.append(Paragraph("AQUAPULSE · TEAM MYTHOS", ParagraphStyle('Tag', fontName='Helvetica-Bold', fontSize=10, textColor=ACCENT, spaceAfter=4)))
     story.append(Paragraph("Real-Time Groundwater Resource Evaluation Platform", title_style))
-    story.append(Paragraph("Full Technical Documentation, System Dossier & 2-Minute Demo Presentation Script", subtitle_style))
+    story.append(Paragraph("Technical Dossier & 2-Minute Demo Presentation Script — by Team Mythos", subtitle_style))
     story.append(HRFlowable(width="100%", thickness=2, color=ACCENT, spaceAfter=14))
 
     meta_table_data = [
         [
-            Paragraph("<b>Target Body:</b> Ministry of Jal Shakti & Central Ground Water Board (CGWB)", table_cell),
+            Paragraph("<b>Team Name:</b> <b>Team Mythos</b>", table_cell),
             Paragraph("<b>Status:</b> Demo-Ready Verified Prototype", table_cell)
         ],
         [
-            Paragraph("<b>Problem Area:</b> DWLR Telemetry & Dynamic Stress Evaluation", table_cell),
+            Paragraph("<b>Target Body:</b> Ministry of Jal Shakti / CGWB", table_cell),
             Paragraph("<b>Test Suite:</b> 33/33 Unit & Boundary Tests Passed (100%)", table_cell)
         ],
         [
-            Paragraph("<b>Technology:</b> React 18, Vite, Flask, SQLite, Leaflet, Holt Smoothing", table_cell),
-            Paragraph("<b>Deployment:</b> Strategy Adapter Ready for India-WRIS API", table_cell)
+            Paragraph("<b>Technology:</b> React 18, Vite, Flask, SQLite, Holt Smoothing", table_cell),
+            Paragraph("<b>Live Website:</b> <code>sayanrooj.github.io/mythos</code>", table_cell)
         ]
     ]
     t_meta = Table(meta_table_data, colWidths=[260, 244])
