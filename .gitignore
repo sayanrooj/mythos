@@ -25,3 +25,6 @@ frontend/dist/
 
 # Local SQLite (auto-created on first run by backend/seed.py)
 backend/aquapulse.db
+
+# Exclude internal pitch & dossier PDFs
+Team_Mythos_*
